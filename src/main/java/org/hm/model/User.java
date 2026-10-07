@@ -1,6 +1,6 @@
-package org.hm.dto;
+package org.hm.model;
 
-public record UserDto(
+public record User(
         Long id,
         String userName,
         String role,
