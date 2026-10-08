@@ -1,27 +1,58 @@
 package org.hm;
 
-import org.hm.model.User;
-import org.hm.repository.UserIcebergRepository;
-import org.hm.service.UserService;
+import org.hm.model.Order;
+import org.hm.repository.OrderIcebergRepository;
+import org.hm.service.OrderService;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        UserIcebergRepository repository =
-                new UserIcebergRepository();
+        OrderIcebergRepository orderRepository =
+                new OrderIcebergRepository();
 
-        UserService service =
-                new UserService(repository);
-        service.createTable();
+        OrderService orderService =
+                new OrderService(orderRepository);
 
-        service.createUser(
-                new User(
+        orderService.displaySchema();
+
+        orderService.createOrder(
+                new Order(
                         1L,
-                        "mohamed.hamma",
-                        "ADMIN",
-                        true
+                        "Mohamed",
+                        100.0,
+                        "CREATED"
                 )
         );
+
+        orderService.createOrder(
+                new Order(
+                        2L,
+                        "Alice",
+                        250.0,
+                        "CREATED"
+                )
+        );
+
+        orderService.createOrder(
+                new Order(
+                        3L,
+                        "Bob",
+                        80.0,
+                        "CREATED"
+                )
+        );
+        orderService.updateStatus(
+                1L,
+                "PAID"
+        );
+
+        orderService.updateStatus(
+                3L,
+                "CANCELLED"
+        );
+        System.out.println("\n==== ORDERS ====\n");
+
+        orderService.displayOrders();
     }
 }
